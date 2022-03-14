@@ -5,7 +5,7 @@ jobs:
   build:
     docker:
       - image: cimg/php:8.1-browsers # The primary container where steps are run
-      - image: cimg/mysql:8.0
+      - image: cimg/mysql:8.0.27
         environment:
           MYSQL_ROOT_PASSWORD: rootpw
           MYSQL_DATABASE: test_db
@@ -14,6 +14,7 @@ jobs:
 
     steps:
       - checkout
+      - run: mysql --version
       - run:
       # Our primary container isn't MYSQL so run a sleep command until it's ready.
           name: Waiting for MySQL to be ready
@@ -28,11 +29,10 @@ jobs:
       - run:
           name: Install MySQL CLI; Import dummy data; run an example query
           command: |
-            sudo apt-get update && sudo apt-get dist-upgrade
+            sudo apt-get update && sudo apt-get ugrade
             sudo apt-get install mysql-client
-            sudo apt-get install mysql-server
-            mysql -h 127.0.0.1 -u user -ppassw0rd test_db < sql-data/dummy.sql
-            mysql -h 127.0.0.1 -u user -ppassw0rd --execute="SELECT * FROM test_db.Persons"
+            mysql -h 127.0.0.1 -u user -p passw0rd test_db < sql-data/dummy.sql
+            mysql -h 127.0.0.1 -u user -p passw0rd --execute="SELECT * FROM test_db.Persons"
 workflows:
   version: 2
   build-deploy:
