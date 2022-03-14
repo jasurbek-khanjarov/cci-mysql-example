@@ -34,8 +34,8 @@ jobs:
       - run:
           name: Import dummy data; run an example query
           command: |
-            mysql -h 127.0.0.1 -u user -p passw0rd test_db < sql-data/dummy.sql
-            mysql -h 127.0.0.1 -u user -p passw0rd --execute="SELECT * FROM test_db.Persons"
+            mysql -h 127.0.0.1 -u user -ppassw0rd test_db < sql-data/dummy.sql
+            mysql -h 127.0.0.1 -u user -ppassw0rd --execute="SELECT * FROM test_db.Persons"
 workflows:
   version: 2
   build-deploy:
