@@ -14,7 +14,6 @@ jobs:
 
     steps:
       - checkout
-      - run: mysql --version
       - run:
       # Our primary container isn't MYSQL so run a sleep command until it's ready.
           name: Waiting for MySQL to be ready
@@ -33,6 +32,8 @@ jobs:
             sudo apt-get install mysql-client
             mysql -h 127.0.0.1 -u user -p passw0rd test_db < sql-data/dummy.sql
             mysql -h 127.0.0.1 -u user -p passw0rd --execute="SELECT * FROM test_db.Persons"
+      - run: mysql --version
+
 workflows:
   version: 2
   build-deploy:
